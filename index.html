@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Uang Tunggu</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:,">
+</head>
+
+<body>
+
+<h2>FORM UANG TUNGGU CUSTOMER NASMOCO PEKALONGAN</h2>
+
+<div class="container">
+
+    <div class="menu">
+        <button onclick="showForm()">Isi Form</button>
+        <button onclick="showData()">Hasil Form</button>
+    </div>
+
+    <div id="formPage">
+        <h3>Isi Form</h3>
+
+       <label>SA</label>
+    <select id="sa">
+    <option value="">-- Pilih SA --</option>
+    <option value="BGR">BGR</option>
+    <option value="TFK">TFK</option>
+    <option value="SIN">SIN</option>
+    <option value="TEJ">TEJ</option>
+    <option value="BGA">BGA</option>
+    <option value="BDW">BDW</option>
+    <option value="TIO">TIO</option>
+    <option value="ATS">ATS</option>
+    <option value="SUR">SUR</option>
+    </select>
+
+        <label>Nama</label>
+        <input type="text" id="nama" placeholder="Masukkan nama">
+
+        <label>NIK</label>
+        <input type="text" id="nik" placeholder="Masukkan NIK">
+
+        <label>Alamat</label>
+        <input type="text" id="alamat">
+
+        <label>Nominal</label>
+        <input type="text" id="nominal" placeholder="Contoh: 1.000.000">
+
+        <label>Invoice</label>
+        <input type="text" id="invoice">
+
+        <label>Rekening</label>
+
+<!-- PILIH METODE -->
+<select id="metode" onchange="handleMetode()" onclick="handleMetode()">
+    <option value="">-- Pilih --</option>
+    <option value="CASH">CASH</option>
+    <option value="TRANSFER">TRANSFER</option>
+</select>
+
+<!-- PILIH BANK -->
+<div id="bankContainer" class="hidden">
+    <select id="bank" onchange="handleBank()">
+    <option value="">-- Pilih Bank --</option>
+    <option value="BRI">BRI</option>
+    <option value="BNI">BNI</option>
+    <option value="MANDIRI">MANDIRI</option>
+    <option value="BCA">BCA</option>
+    <option value="BANK JATENG">BANK JATENG</option>
+    <option value="PERMATA">PERMATA</option>
+    <option value="LAINNYA">BANK LAINNYA</option>
+</select>
+</div>
+
+<!-- INPUT NO REK -->
+<div id="noRekContainer" style="display:none;">
+    <input type="text" id="noRek" placeholder="Masukkan nomor rekening">
+</div>
+
+        <label>Upload KTP</label>
+        <input type="file" id="ktp" accept="image/*">
+
+        <img id="previewKTP" width="150" style="display:none; margin-top:10px;">
+
+        <h4>Tanda Tangan</h4>
+        <canvas id="canvas" width="300" height="150"></canvas><br>
+        <button onclick="clearCanvas()">Clear</button><br><br>
+
+        <button class="submit" onclick="kirimData()">Kirim</button>
+
+        <div id="loadingBar"></div>
+        <div id="notif"></div>
+    </div>
+
+    <div id="dataPage" style="display:none;">
+
+        <button class="btn pdf" onclick="exportPDF()">Export PDF</button>
+        <button class="btn excel" onclick="exportExcel()">Export Excel</button>
+
+        <h3>Hasil Form</h3>
+
+<div class="filter-group">
+
+    <div>
+        <label>Filter SA</label>
+        <select id="filterSA" onchange="filterData()">
+            <option value="">-- Semua SA --</option>
+            <option value="BGR">BGR</option>
+            <option value="TFK">TFK</option>
+            <option value="SIN">SIN</option>
+            <option value="TEJ">TEJ</option>
+            <option value="BGA">BGA</option>
+            <option value="BDW">BDW</option>
+            <option value="TIO">TIO</option>
+            <option value="ATS">ATS</option>
+            <option value="SUR">SUR</option>
+        </select>
+    
+        <label>Metode</label>
+<select id="filterMetode" onchange="filterData()">
+    <option value="">-- Semua --</option>
+    <option value="CASH">CASH</option>
+    <option value="TRANSFER">TRANSFER</option>
+</select>
+
+        <label>Filter Tanggal</label>
+        <div class="range-date">
+    <input type="date" id="filterTanggalAwal" onchange="filterData()">
+    <span>-</span>
+    <input type="date" id="filterTanggalAkhir" onchange="filterData()">
+    </div>
+    </div>
+
+</div>
+
+<div class="table-wrapper">
+    <table id="tableData"></table>
+</div>
+
+</div>
+<!-- LOADING OVERLAY -->
+<div id="overlay">
+    <div class="spinner"></div>
+    <p>Mengirim data...</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<script src="script.js"></script>
+</body>
+</html>
