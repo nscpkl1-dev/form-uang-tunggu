@@ -44,7 +44,6 @@ function resizeCanvas() {
     canvas.height = canvas.offsetHeight;
 }
 window.addEventListener("load", resizeCanvas);
-window.addEventListener("resize", resizeCanvas);
 
 // mouse
 canvas.addEventListener("mousedown", startDraw);
@@ -163,10 +162,22 @@ function resetForm(){
 async function kirimData(){
 
     // VALIDASI AWAL
-    if(!sa.value || !nama.value || !nik.value || !alamat.value || !nominal.value){
-        showNotif("Semua field wajib diisi!", "error");
-        return;
-    }
+if(
+    !sa.value ||
+    !nama.value ||
+    !nik.value ||
+    !alamat.value ||
+    !nominal.value ||
+    !invoice.value
+){
+    Swal.fire({
+        icon: "warning",
+        title: "Data Belum Lengkap",
+        text: "Semua field wajib diisi!"
+    });
+
+    return;
+}
 
     // =========================
     // 🔥 TAMBAHKAN DI SINI
@@ -670,4 +681,32 @@ function exportExcel(){
 
     XLSX.utils.book_append_sheet(wb, ws, "Laporan");
     XLSX.writeFile(wb, "Laporan-Uang-Tunggu.xlsx");
+}
+
+function confirmClear(){
+
+    let yakin = confirm("Apakah yakin ingin menghapus tanda tangan?");
+
+    if(yakin){
+        clearCanvas();
+    }
+}
+function confirmKirim(){
+
+    Swal.fire({
+        title: "Apakah Data Sudah Benar?",
+        text: "Pastikan seluruh data yang diisi sudah sesuai.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#27ae60",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: "Ya, Kirim",
+        cancelButtonText: "Periksa Lagi"
+    }).then((result) => {
+
+        if(result.isConfirmed){
+            kirimData();
+        }
+
+    });
 }

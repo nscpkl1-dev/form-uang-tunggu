@@ -762,3 +762,18 @@ button.submit:hover {
 .btn.excel:hover {
     background-color: #1e8449;
 }
+
+.btn-clear{
+    padding: 5px 12px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dc3545;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-clear:hover{
+    background-color: #b02a37;
+}
