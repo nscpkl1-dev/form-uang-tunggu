@@ -777,3 +777,15 @@ button.submit:hover {
 .btn-clear:hover{
     background-color: #b02a37;
 }
+.judul-ttd{
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.ket-ttd{
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #b41717;
+}
