@@ -13,7 +13,9 @@ const nik = document.getElementById("nik");
 const alamat = document.getElementById("alamat");
 const nominal = document.getElementById("nominal");
 const invoice = document.getElementById("invoice");
-const ktp = document.getElementById("ktp");
+const kamera = document.getElementById("kamera");
+const galeri = document.getElementById("galeri");
+let ktpFile = null;
 const loading = document.getElementById("loading");
 const btnSubmit = document.querySelector(".submit");
 
@@ -150,10 +152,16 @@ function resetForm(){
     document.getElementById("bankContainer").style.display = "none";
     document.getElementById("noRekContainer").style.display = "none";
 
-    ktp.value = ""; // 🔥 reset file
-    document.getElementById("previewKTP").style.display = "none";
+    kamera.value = "";
+galeri.value = "";
+ktpFile = null; // 🔥 reset file
 
-    clearCanvas();
+document.getElementById("btnUpload").innerText =
+    "Upload KTP";
+
+document.getElementById("previewKTP").style.display = "none";
+
+clearCanvas();
 }
 
 // =====================
@@ -201,7 +209,6 @@ if(
 
     let ttd = canvas.toDataURL();
 
-    let ktpFile = ktp.files[0];
     let ktpBase64 = "";
 
     // VALIDASI KTP
@@ -257,20 +264,59 @@ function ambilData(){
     });
 }
 
-ktp.addEventListener("change", function(){
-    const file = this.files[0];
+// PREVIEW DARI KAMERA
+kamera.addEventListener("change", function(){
 
-    if(file){
+    if(!this.files.length) return;
+
+ktpFile = this.files[0];
+
+document.getElementById("btnUpload").innerText =
+    ktpFile.name;
+
+if(ktpFile){
         const reader = new FileReader();
 
         reader.onload = function(e){
+
             const preview = document.getElementById("previewKTP");
+
             preview.src = e.target.result;
             preview.style.display = "block";
+
         }
 
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(ktpFile);
     }
+
+});
+
+// PREVIEW DARI GALERI
+galeri.addEventListener("change", function(){
+
+if(!this.files.length) return;
+
+ktpFile = this.files[0];
+
+document.getElementById("btnUpload").innerText =
+    ktpFile.name;
+
+if(ktpFile){
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+
+            const preview = document.getElementById("previewKTP");
+
+            preview.src = e.target.result;
+            preview.style.display = "block";
+
+        }
+
+        reader.readAsDataURL(ktpFile);
+    }
+
 });
 
 function tampilkanData(data){
@@ -710,3 +756,27 @@ function confirmKirim(){
 
     });
 }
+
+document.getElementById("btnUpload").addEventListener("click", () => {
+
+    Swal.fire({
+        title: "Pilih Sumber Foto",
+        showDenyButton: true,
+        showCancelButton: true,
+
+        confirmButtonText: "Kamera",
+        denyButtonText: "Galeri"
+
+    }).then((result) => {
+
+        if(result.isConfirmed){
+            kamera.click();
+        }
+
+        else if(result.isDenied){
+            galeri.click();
+        }
+
+    });
+
+});

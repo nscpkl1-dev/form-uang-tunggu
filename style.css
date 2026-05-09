@@ -789,3 +789,26 @@ button.submit:hover {
     font-size: 14px;
     color: #b41717;
 }
+.preview-ktp{
+    width: 150px;
+    display: none;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+#btnUpload{
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 10px;
+}
+
+#btnUpload:hover{
+    background: #0056b3;
+}

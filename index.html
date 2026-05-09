@@ -82,10 +82,28 @@
     <input type="text" id="noRek" placeholder="Masukkan nomor rekening">
 </div>
 
-        <label>Upload KTP</label>
-        <input type="file" id="ktp" accept="image/*">
+     <label>Upload KTP</label>
 
-        <img id="previewKTP" width="150" style="display:none; margin-top:10px;">
+<button type="button" id="btnUpload">
+    Upload KTP
+</button>
+
+<!-- Input Kamera -->
+<input 
+    type="file" 
+    id="kamera" 
+    accept="image/*" 
+    capture="environment"
+    hidden
+>
+
+<!-- Input Galeri -->
+<input 
+    type="file" 
+    id="galeri" 
+    accept="image/*"
+    hidden>
+        <img id="previewKTP" class="preview-ktp">
 
        <h4 class="judul-ttd">Tanda Tangan Customer</h4>
     <p class="ket-ttd">
